@@ -31,41 +31,41 @@ const questions = [
 ];
 
 // TODO: Define the writeToFile function
-function writeToFile(fileName, data) {
+function writeFile(fileName, data, callback) {
   fs.writeFile(fileName, data, (err) => {
     if (err) {
       console.error(`Error writing ${fileName} file:`, err);
+      if (callback) callback(err);
     } else {
       console.log(`${fileName} file created successfully.`);
+      if (callback) callback();
     }
   });
 }
 
 // TODO: Define the generateReadme function
 function generateReadme(projectName, description, installationSteps, usageSteps, licenseName, licenseLink) {
-    return `# ${projectName}
-  
-  ## Description
-  
-  ${description}
-  
-  ## Installation
-  
-  ${installationSteps}
-  
-  ## Usage
-  
-  ${usageSteps}
-  
-  ## License
-  
-  [${licenseName}](${licenseLink})
-  `;
-  }
+  return `# ${projectName}
 
-// TODO: Define the generateIndexFileContent function
-function generateIndexFileContent() {
-  // Implementation goes here
+## Name
+${projectName}
+
+## Description
+
+${description}
+
+## Installation
+
+${installationSteps}
+
+## Usage
+
+${usageSteps}
+
+## License
+
+[${licenseName}](${licenseLink})
+`;
 }
 
 function init() {
@@ -73,12 +73,11 @@ function init() {
     const { projectName, description, installationSteps, usageSteps, licenseName, licenseLink } = answers;
 
     const readmeContent = generateReadme(projectName, description, installationSteps, usageSteps, licenseName, licenseLink);
-    const indexFileContent = generateIndexFileContent();
 
-    writeToFile('README.md', readmeContent);
-    writeToFile('index.js', indexFileContent);
+    writeFile('README.md', readmeContent, () => {
+      // Additional tasks after writing the README file, if needed
+    });
   });
 }
 
-// Call the init function to start the app
 init();
