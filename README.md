@@ -1,20 +1,20 @@
-# test
+# Readme Generator
 
 ## Name
-test
+Readme Generator
 
 ## Description
 
-test
+This is a program that will help users create a proper "Readme" file
 
 ## Installation
 
-test
+Users would get access to the proper files and from there run "node index.js" on their terminal
 
 ## Usage
 
-test
+Users will fill out a questionnaire that will help prompt there to have a proper Readme file
 
 ## License
 
-[test](test)
+[N/A](N/A)
