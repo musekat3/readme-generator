@@ -25,47 +25,79 @@ const questions = [
     message: 'Enter the name of the license for your project:',
   },
   {
+    name: 'contributing',
+    message: 'Enter the contributing guidelines for your project:',
+  },
+  {
+    name: 'testing',
+    message: 'Enter the testing instructions for your project:',
+  },
+  {
+    name: 'badge',
+    message: 'Enter the badge for your project:',
+  },
+  {
+    name: 'toc',
+    message: 'Enter the table of contents for your project:',
+  },
+  {
     name: 'licenseLink',
     message: 'Enter the link to the license for your project:',
   },
 ];
 
 // TODO: Define the writeToFile function
-function writeFile(fileName, data, callback) {
+function writeToFile(fileName, data) {
   fs.writeFile(fileName, data, (err) => {
     if (err) {
       console.error(`Error writing ${fileName} file:`, err);
-      if (callback) callback(err);
     } else {
       console.log(`${fileName} file created successfully.`);
-      if (callback) callback();
     }
   });
 }
 
 // TODO: Define the generateReadme function
 function generateReadme(projectName, description, installationSteps, usageSteps, licenseName, licenseLink) {
-  return `# ${projectName}
+    return `# ${projectName}
+  
+  ## Description
+  
+  ${description}
+  
+  ## Installation
+  
+  ${installationSteps}
+  
+  ## Usage
+  
+  ${usageSteps}
 
-## Name
-${projectName}
+  ## Contributing
+ 
+  ${contributing}
+  
+  ## Testing
+  
+  ${testing}
+  
+  ## Badge
+  
+  ${badge}
+  
+  ## Table of Contents
+  
+  ${toc}
+  
+  ## License
+  
+  [${licenseName}](${licenseLink})
+  `;
+  }
 
-## Description
-
-${description}
-
-## Installation
-
-${installationSteps}
-
-## Usage
-
-${usageSteps}
-
-## License
-
-[${licenseName}](${licenseLink})
-`;
+// TODO: Define the generateIndexFileContent function
+function generateIndexFileContent() {
+  // Implementation goes here
 }
 
 function init() {
@@ -73,11 +105,12 @@ function init() {
     const { projectName, description, installationSteps, usageSteps, licenseName, licenseLink } = answers;
 
     const readmeContent = generateReadme(projectName, description, installationSteps, usageSteps, licenseName, licenseLink);
+    const indexFileContent = generateIndexFileContent();
 
-    writeFile('README.md', readmeContent, () => {
-      // Additional tasks after writing the README file, if needed
-    });
+    writeToFile('README.md', readmeContent);
+    writeToFile('index.js', indexFileContent);
   });
 }
 
+// Call the init function to start the app
 init();
